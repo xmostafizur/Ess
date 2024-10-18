@@ -136,6 +136,35 @@
             margin-top: 10px;
         }
 
+        .live-prove-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px;
+        }
+
+        .live-prove-button a {
+            display: inline-flex;
+            align-items: center;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            font-size: 18px;
+        }
+
+        .live-prove-button a:hover {
+            background-color: #218838;
+        }
+
+        .live-prove-button img {
+            margin-right: 10px;
+            width: 32px;
+            height: 32px;
+        }
+
         @media screen and (max-width: 600px) {
             header h1 {
                 font-size: 20px;
@@ -151,40 +180,41 @@
     <header>
         <h1>Professional Online Shop</h1>
         <div class="cart">
-            <button onclick="toggleCart()">Cart (<span id="cart-count">0</span>)</button>
+            <button onclick="toggleCart()">YouTube (<span id="cart-count">0</span>)</button>
         </div>
     </header>
     <main>
         <div class="main">
             <div class="product-list">
+                <!-- Products Code -->
                 <div class="product">
                     <img src="https://i.postimg.cc/c186jNnQ/ja-Talr-FC0ab-QVp2uhg-Krb-UNId0u4iuosc-J5q-JCd6pq7ln-D7f-Qtl-TG6-Tfr-Q-x-R4-Kqkue-Ofh-TFh7-Fg-K-zew-XPw-x2ovk-NGRLGn5-Y.png" alt="Product 1">
                     <h2>Product 1</h2>
-                    <p>Price: $10</p>
+                    <p>$10.00</p>
                     <button onclick="addToCart('Product 1', 10)">Add to Cart</button>
                 </div>
                 <div class="product">
                     <img src="https://i.postimg.cc/0jmQJpst/GDQu-UJn-MKvrpk6-XUw-Q0y1-Jwhea-PUHc-Uz-kv-BKO65-Jileq-h5-34-Vj-UC7dhps3-YC2ew-Wt-z-X-Eqz2v5w-Ia7-AEQ-6i-ZKxf-XRm0-LCl.png" alt="Product 2">
                     <h2>Product 2</h2>
-                    <p>Price: $20</p>
-                    <button onclick="addToCart('Product 2', 20)">Add to Cart</button>
+                    <p>$15.00</p>
+                    <button onclick="addToCart('Product 2', 15)">Add to Cart</button>
                 </div>
                 <div class="product">
                     <img src="https://i.postimg.cc/rm7smfv0/t-E-e-Z7-J1c-LZRFmqk9-HVKg-Nol-PA4ka4dr-ZZ8-S0v-ZU-2-Mx-DE7-Zfg2-JBPm1w1w2-ELj2k-Li4-U2fyz2-ZAiv56-CIm-0w-So-SGOt8-Km-S49.png" alt="Product 3">
                     <h2>Product 3</h2>
-                    <p>Price: $15</p>
-                    <button onclick="addToCart('Product 3', 15)">Add to Cart</button>
+                    <p>$20.00</p>
+                    <button onclick="addToCart('Product 3', 20)">Add to Cart</button>
                 </div>
                 <div class="product">
                     <img src="https://i.postimg.cc/YSnhcrRx/RNDg-Ubk-WQs-EB0n-Ggxppnm-Vg-d-T9-Jw-M-TX3-K5-Yj-VPWTHA8y-Xtq08qz-Szud-Ak-HPo-Kz2-I-b-Jp7z-Z7-AQl-VVj-I5w63-A-wvd-QNp-Tn-JFIDS.png" alt="Product 4">
                     <h2>Product 4</h2>
-                    <p>Price: $25</p>
+                    <p>$25.00</p>
                     <button onclick="addToCart('Product 4', 25)">Add to Cart</button>
                 </div>
                 <div class="product">
                     <img src="https://i.postimg.cc/Y2JLqSHn/images-27.png" alt="Product 5">
                     <h2>Product 5</h2>
-                    <p>Price: $30</p>
+                    <p>$30.00</p>
                     <button onclick="addToCart('Product 5', 30)">Add to Cart</button>
                 </div>
             </div>
@@ -197,57 +227,47 @@
         <p class="total-price">Total: $<span id="total-price">0</span></p>
     </div>
 
+    <div class="live-prove-button">
+        <a href="https://xmostafizur.github.io/Prove-/" target="_blank">
+            <img src="https://i.postimg.cc/Vvgxn1DQ/live-streaming.gif" alt="Live GIF">
+            Live Prove
+        </a>
+    </div>
+
     <script>
-        // JavaScript Code
+        // JavaScript Code for Cart functionality
         let cart = [];
-        let totalPrice = 0;
 
         function addToCart(productName, price) {
-            let found = cart.find(item => item.name === productName);
-            if (found) {
-                found.quantity += 1;
-            } else {
-                cart.push({ name: productName, price: price, quantity: 1 });
-            }
-            totalPrice += price;
-            updateCart();
-        }
-
-        function removeFromCart(productName, price) {
-            let index = cart.findIndex(item => item.name === productName);
-            if (index !== -1) {
-                totalPrice -= cart[index].price * cart[index].quantity;
-                cart.splice(index, 1);
-            }
+            cart.push({ name: productName, price: price });
             updateCart();
         }
 
         function updateCart() {
-            const cartCount = document.getElementById('cart-count');
-            const cartItems = document.getElementById('cart-items');
-            const totalPriceElement = document.getElementById('total-price');
-            
-            cartCount.textContent = cart.length;
-            cartItems.innerHTML = '';
-            
-            cart.forEach(item => {
-                const li = document.createElement('li');
-                li.textContent = `${item.name} - $${item.price} x ${item.quantity}`;
-                const removeButton = document.createElement('button');
-                removeButton.textContent = 'Remove';
-                removeButton.onclick = () => removeFromCart(item.name, item.price);
-                li.appendChild(removeButton);
-                cartItems.appendChild(li);
-            });
+            let cartCount = document.getElementById('cart-count');
+            cartCount.innerText = cart.length;
 
-            totalPriceElement.textContent = totalPrice.toFixed(2);
+            let cartItems = document.getElementById('cart-items');
+            cartItems.innerHTML = '';
+            let totalPrice = 0;
+            cart.forEach((item, index) => {
+                let li = document.createElement('li');
+                li.innerHTML = `${item.name} - $${item.price} <button onclick="removeFromCart(${index})">Remove</button>`;
+                cartItems.appendChild(li);
+                totalPrice += item.price;
+            });
+            document.getElementById('total-price').innerText = totalPrice;
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCart();
         }
 
         function toggleCart() {
-            const cartDetails = document.getElementById('cart-details');
-            cartDetails.style.display = cartDetails.style.display === 'none' || cartDetails.style.display === '' ? 'block' : 'none';
+            let cartDetails = document.getElementById('cart-details');
+            cartDetails.style.display = cartDetails.style.display === 'none' ? 'block' : 'none';
         }
     </script>
 </body>
-                  </html>
-                  
+</html>
